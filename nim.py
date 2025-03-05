@@ -103,7 +103,7 @@ class NimAI():
         """
         if len(self.q.values()) == 0:
             return 0
-        return self.q[state][action]
+        return self.q[(state, action)]
 
     def update_q_value(self, state, action, old_q, reward, future_rewards):
         """
