@@ -160,7 +160,7 @@ class NimAI():
         """
         best_reward = self.best_future_reward(state)
         actions_available = list(Nim.available_actions(state))
-        best_action_greedy = [key for key, q_val in self.q.items() if q_val == best_reward][1][0]
+        best_action_greedy = [key for key, q_val in self.q.items() if q_val == best_reward][0][1]
         if not epsilon:
             return best_action_greedy
         else:
