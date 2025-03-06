@@ -122,7 +122,7 @@ class NimAI():
         is the sum of the current reward and estimated future rewards.
         """
         q_value_to_update = self.get_q_value(state, action)
-        result = old_q + 2 *((reward + future_rewards) - q_value_to_update)
+        result = old_q + ((reward + future_rewards) - q_value_to_update)
         self.q[(tuple(state), tuple(action))] = result
 
     def best_future_reward(self, state):
