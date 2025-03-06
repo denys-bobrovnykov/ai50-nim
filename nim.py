@@ -159,18 +159,15 @@ class NimAI():
         options is an acceptable return value.
         """
         best_reward = self.best_future_reward(state)
-        actions = []
-        for key, value in self.q.items():
-            if value and value == best_reward:
-                actions.append(key[1])
-        best_action_greedy = actions[1]
+        actions_available = list(Nim.available_actions(state))
+        best_action_greedy = [key(1) for key, q_val in self.q.items() if q_val == best_reward][0]
         if not epsilon:
             return best_action_greedy
         else:
             moves = ["random", "greedy"]
             choice = random.choices(moves, weights=[self.epsilon, 1 - self.epsilon])[0]
             if choice == "random":
-                return random.choice(list(Nim.available_actions(state)))
+                return random.choice(actions_available)
             elif choice == "greedy":
                 return best_action_greedy
 
