@@ -158,7 +158,18 @@ class NimAI():
         If multiple actions have the same Q-value, any of those
         options is an acceptable return value.
         """
-        raise NotImplementedError
+        best_reward = self.best_future_reward(state)
+        keys = [key for key, q_val in self.q.items() if q_val == best_reward and key[0] == state]
+        best_action_greedy = random.choice(keys)[1]
+        if not epsilon:
+            return best_action_greedy
+        else:
+            moves = ["random", "greedy"]
+            choice = random.choices(moves, weights=[self.epsilon, 1 - self.epsilon])[0]
+            if choice == "random":
+                return random.choice(list(Nim.available_actions(state)))
+            elif choice == "greedy":
+                return best_action_greedy
 
 
 def train(n):
